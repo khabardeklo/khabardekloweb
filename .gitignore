@@ -1,0 +1,32 @@
+# Node modules
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code settings
+.vscode/
+
+# Uploads and build artifacts
+backend/public/uploads/
+
+# TypeScript
+*.tsbuildinfo
+
+# Misc
+package-lock.json

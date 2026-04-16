@@ -1,0 +1,72 @@
+.rail {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid #dbe2ea;
+  background: linear-gradient(145deg, #0f172a, #1e293b);
+  color: #e2e8f0;
+  padding: 0.95rem 0.9rem;
+  min-height: 220px;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.2);
+}
+
+.tag {
+  margin: 0;
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #7dd3fc;
+}
+
+.title {
+  margin: 0.55rem 0 0;
+  font-size: 1.1rem;
+  line-height: 1.25;
+}
+
+.description {
+  margin: 0.55rem 0 0;
+  color: #cbd5e1;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  max-width: 90%;
+}
+
+.cta {
+  display: inline-block;
+  margin-top: 0.75rem;
+  border-radius: 9999px;
+  padding: 0.38rem 0.75rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #082f49;
+  background: #bae6fd;
+  text-decoration: none;
+}
+
+.graphic {
+  position: absolute;
+  right: -36px;
+  bottom: -44px;
+  width: 150px;
+  height: 150px;
+  border-radius: 36px;
+  transform: rotate(18deg);
+}
+
+.graphicOne {
+  background: radial-gradient(circle at 30% 30%, rgba(14, 165, 233, 0.5), rgba(2, 132, 199, 0.1));
+}
+
+.graphicTwo {
+  background: radial-gradient(circle at 30% 30%, rgba(250, 204, 21, 0.45), rgba(161, 98, 7, 0.15));
+}

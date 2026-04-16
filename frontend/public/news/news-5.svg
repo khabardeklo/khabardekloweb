@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-label="News image 5">
+  <defs>
+    <linearGradient id="g5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7c2d12" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="700" fill="url(#g5)" />
+  <circle cx="600" cy="360" r="190" fill="#fb923c" fill-opacity="0.45" />
+  <circle cx="600" cy="360" r="120" fill="#ffedd5" fill-opacity="0.35" />
+  <rect x="170" y="140" width="860" height="24" rx="12" fill="#ffedd5" fill-opacity="0.82" />
+  <rect x="170" y="560" width="520" height="18" rx="9" fill="#ffedd5" fill-opacity="0.8" />
+</svg>

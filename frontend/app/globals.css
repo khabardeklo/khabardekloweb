@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f8fafc;
+  --text: #0f172a;
+  --primary: #0ea5e9;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.logo-flip-scene {
+  display: inline-flex;
+  perspective: 1200px;
+}
+
+.logo-flip-cube {
+  position: relative;
+  display: inline-flex;
+  transform-style: preserve-3d;
+  animation: logoFlip 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.logo-flip-face {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.logo-flip-face-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+}
+
+@keyframes logoFlip {
+  0%,
+  40% {
+    transform: rotateY(0deg);
+  }
+
+  50%,
+  90% {
+    transform: rotateY(180deg);
+  }
+
+  100% {
+    transform: rotateY(360deg);
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "khabar-deklo-admin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "next": "^16.2.3",
+    "quill": "^2.0.3",
+    "quill-image-resize-module-react": "^3.0.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-quill-new": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/node": "20.14.10",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "autoprefixer": "10.4.19",
+    "eslint": "9.38.0",
+    "eslint-config-next": "16.2.3",
+    "postcss": "8.4.39",
+    "tailwindcss": "3.4.6",
+    "typescript": "5.5.3"
+  }
+}

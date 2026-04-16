@@ -1,0 +1,88 @@
+.panel {
+  position: sticky;
+  top: 1rem;
+  border: 1px solid #dbe2ea;
+  border-radius: 16px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.header {
+  background: linear-gradient(140deg, #082f49, #0c4a6e);
+  color: #f8fafc;
+  padding: 0.875rem 1rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  animation: tickerScroll var(--ticker-duration, 24s) linear infinite;
+}
+
+.viewport {
+  max-height: 430px;
+  overflow: hidden;
+}
+
+.item {
+  border-bottom: 1px solid #eff3f8;
+}
+
+.item:last-child {
+  border-bottom: 0;
+}
+
+.link {
+  display: block;
+  padding: 0.8rem 0.95rem;
+  color: #1e293b;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.link:hover {
+  background: #eff6ff;
+  color: #0c4a6e;
+}
+
+.viewport:hover .list {
+  animation-play-state: paused;
+}
+
+@keyframes tickerScroll {
+  from {
+    transform: translateY(0%);
+  }
+
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .list {
+    animation: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .panel {
+    position: static;
+  }
+
+  .viewport {
+    max-height: none;
+  }
+
+  .list {
+    animation: none;
+  }
+}
