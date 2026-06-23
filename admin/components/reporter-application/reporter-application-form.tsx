@@ -13,11 +13,12 @@ export function ReporterApplicationForm() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const form = event.currentTarget;
     setPending(true);
     setMessage(null);
     setError(null);
 
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(form);
     const payload = {
       name: String(formData.get("name") || "").trim(),
       email: String(formData.get("email") || "").trim(),
@@ -42,7 +43,7 @@ export function ReporterApplicationForm() {
       }
 
       setMessage(data?.message || "Application submitted. Wait for admin approval.");
-      event.currentTarget.reset();
+      form.reset();
     } catch (requestError) {
       setError(requestError instanceof Error ? requestError.message : "Unable to submit reporter application");
     } finally {

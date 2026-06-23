@@ -17,4 +17,5 @@ export const env = {
   defaultReporterName: process.env.DEFAULT_REPORTER_NAME || "News Reporter",
   defaultReporterEmail: process.env.DEFAULT_REPORTER_EMAIL || "reporter@khabardeklo.com",
   defaultReporterPassword: process.env.DEFAULT_REPORTER_PASSWORD || "Reporter@123",
+  revalidateSecret: process.env.REVALIDATE_SECRET || "revalidate-secret-key",
 };

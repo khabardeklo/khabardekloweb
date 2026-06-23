@@ -78,9 +78,6 @@ export default function ReporterLoginPage() {
             <p className="mt-4 text-sm text-slate-600">
               New reporter? <Link href="/reporter-apply" className="font-semibold text-sky-700 hover:text-sky-800">Apply for access</Link>
             </p>
-            <Link href="/reporter" className="mt-3 inline-block text-sm font-semibold text-sky-700 hover:text-sky-800 sm:mt-4">
-              Workspace preview
-            </Link>
           </div>
         </section>
       </main>

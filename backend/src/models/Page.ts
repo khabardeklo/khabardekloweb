@@ -6,6 +6,7 @@ export interface IPage extends Document {
   title: string;
   slug: string;
   templateType: PageTemplateType;
+  displayOrder: number;
   menuLabel?: string;
   content: string;
   isPublished: boolean;
@@ -23,6 +24,7 @@ const pageSchema = new Schema<IPage>(
       enum: ["frontend-header", "frontend-footer", "header-menu", "custom"],
       required: true,
     },
+    displayOrder: { type: Number, default: 0, index: true },
     menuLabel: { type: String, trim: true },
     content: { type: String, required: true },
     isPublished: { type: Boolean, default: true },
@@ -31,6 +33,6 @@ const pageSchema = new Schema<IPage>(
   { timestamps: true }
 );
 
-pageSchema.index({ templateType: 1, isPublished: 1, createdAt: -1 });
+pageSchema.index({ templateType: 1, isPublished: 1, displayOrder: 1, createdAt: -1 });
 
 export const Page = mongoose.model<IPage>("Page", pageSchema);

@@ -44,9 +44,6 @@ export const newsOverview = {
 };
 
 export const sampleNews: NewsRow[] = [
-  { title: "Front-page politics update", author: "Aman", category: "Politics", status: "Scheduled" },
-  { title: "Weekend sports round-up", author: "Neha", category: "Sports", status: "Draft" },
-  { title: "New metro expansion report", author: "Rohit", category: "India", status: "Published" },
 ];
 
 export const sampleUsers: UserRow[] = [
@@ -65,16 +62,6 @@ export const pageCategories = [
 ];
 
 export const samplePages: PageRow[] = [
-  { title: "Category Page - Politics", category: "category", status: "Published", createdAt: "2024-04-10" },
-  { title: "Category Page - Sports", category: "category", status: "Published", createdAt: "2024-04-09" },
-  { title: "Footer - About Us", category: "footer", status: "Published", createdAt: "2024-04-08" },
-  { title: "Footer - Terms & Conditions", category: "footer", status: "Draft", createdAt: "2024-04-07" },
-  { title: "Header - Main Navigation", category: "header", status: "Published", createdAt: "2024-04-06" },
-  { title: "Menu - Trending", category: "menu", status: "Published", createdAt: "2024-04-05" },
-  { title: "Menu - Latest", category: "menu", status: "Published", createdAt: "2024-04-04" },
-  { title: "Custom Page - Contact", category: "custom", status: "Published", createdAt: "2024-04-03" },
-  { title: "English - Home Banner", category: "en", status: "Published", createdAt: "2024-04-02" },
-  { title: "English - About", category: "en", status: "Draft", createdAt: "2024-04-01" },
 ];
 
 export const superAdminCapabilities = [

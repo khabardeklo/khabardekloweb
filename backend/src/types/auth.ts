@@ -11,3 +11,9 @@ export type AuthPayload = {
   password: string;
   role?: UserRole;
 };
+
+export type LoginPayload = {
+  email: string;
+  password: string;
+  role: UserRole;
+};

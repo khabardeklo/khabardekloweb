@@ -8,9 +8,11 @@ import styles from "./news-feed-list.module.css";
 
 type NewsFeedListProps = {
   items: HomeNewsItem[];
+  eyebrow?: string;
+  title?: string;
 };
 
-export function NewsFeedList({ items: initialItems }: NewsFeedListProps) {
+export function NewsFeedList({ items: initialItems, eyebrow = "Top Stories", title = "Khabar Deklo News Feed" }: NewsFeedListProps) {
   const [items, setItems] = useState(initialItems);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(initialItems.length >= 10);
@@ -63,8 +65,8 @@ export function NewsFeedList({ items: initialItems }: NewsFeedListProps) {
   return (
     <section className={styles.panel} aria-label="Latest news feed">
       <div className={styles.headerRow}>
-        <p className={styles.eyebrow}>Top Stories</p>
-        <h1 className={styles.title}>Khabar Deklo News Feed</h1>
+        <p className={styles.eyebrow}>{eyebrow}</p>
+        <h1 className={styles.title}>{title}</h1>
       </div>
 
       <div className={styles.list}>

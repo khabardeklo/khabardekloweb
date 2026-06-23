@@ -52,9 +52,20 @@ type CategoriesMenuProps = {
     slug: string;
     menuLabel?: string;
   }>;
+  sideMenuLinks: Array<{
+    label: string;
+    href: string;
+    isActive: boolean;
+  }>;
+  isCategoryMenuVisible: boolean;
+  maxSideMenuLinks: number;
 };
 
-export function CategoriesMenu({ isOpen, onClose, menuPages }: CategoriesMenuProps) {
+export function CategoriesMenu({ isOpen, onClose, menuPages, sideMenuLinks, isCategoryMenuVisible, maxSideMenuLinks }: CategoriesMenuProps) {
+  const visibleSideMenuLinks = sideMenuLinks
+    .filter((link) => link.isActive !== false)
+    .slice(0, Math.max(1, maxSideMenuLinks || 16));
+
   return (
     <>
       {isOpen && (
@@ -86,6 +97,22 @@ export function CategoriesMenu({ isOpen, onClose, menuPages }: CategoriesMenuPro
         </div>
 
         <nav className="h-[calc(100%-57px)] overflow-y-auto px-2 py-2">
+          {visibleSideMenuLinks.length > 0 ? (
+            <div className="mb-3 border-b border-slate-200 pb-2">
+              <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Quick Links</p>
+              {visibleSideMenuLinks.map((link, index) => (
+                <Link
+                  key={`${link.label}-${index}`}
+                  href={link.href}
+                  onClick={onClose}
+                  className="block rounded-md px-3 py-2 text-[15px] font-semibold text-slate-900 transition-colors hover:bg-slate-100"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          ) : null}
+
           {menuPages.length > 0 ? (
             <div className="mb-3">
               <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Pages</p>
@@ -102,16 +129,18 @@ export function CategoriesMenu({ isOpen, onClose, menuPages }: CategoriesMenuPro
             </div>
           ) : null}
 
-          {categories.map((label, index) => (
-            <Link
-              key={`${label}-${index}`}
-              href={`/search?category=${encodeURIComponent(label)}`}
-              onClick={onClose}
-              className="block rounded-md px-3 py-2 text-[15px] font-medium text-slate-800 transition-colors hover:bg-slate-100"
-            >
-              {label}
-            </Link>
-          ))}
+          {isCategoryMenuVisible
+            ? categories.map((label, index) => (
+                <Link
+                  key={`${label}-${index}`}
+                  href={`/category/${encodeURIComponent(label)}`}
+                  onClick={onClose}
+                  className="block rounded-md px-3 py-2 text-[15px] font-medium text-slate-800 transition-colors hover:bg-slate-100"
+                >
+                  {label}
+                </Link>
+              ))
+            : null}
         </nav>
       </aside>
     </>

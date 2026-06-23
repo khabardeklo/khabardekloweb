@@ -4,6 +4,7 @@ export type PagePayload = {
   title: string;
   slug?: string;
   templateType: PageTemplateType;
+  displayOrder?: number;
   menuLabel?: string;
   content: string;
   isPublished?: boolean;

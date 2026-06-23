@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { AuthenticatedRequest } from "../middleware/auth";
-import type { AuthPayload } from "../types/auth";
+import type { AuthPayload, LoginPayload } from "../types/auth";
 import { getCurrentUser, loginUser, logoutUser, refreshUserSession, registerUser } from "../services/auth.service";
-import { isValidAuthPayload } from "../validations/auth.validation";
+import { isValidAuthPayload, isValidLoginPayload } from "../validations/auth.validation";
 
 const authCookieOptions = {
   httpOnly: true,
@@ -23,8 +23,8 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const login = async (req: Request, res: Response): Promise<void> => {
-  const payload = req.body as Partial<AuthPayload>;
-  if (!isValidAuthPayload(payload)) {
+  const payload = req.body as Partial<LoginPayload>;
+  if (!isValidLoginPayload(payload)) {
     res.status(400).json({ message: "Invalid login payload" });
     return;
   }

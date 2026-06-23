@@ -39,7 +39,7 @@ export default async function PublicPage({ params }: PublicPageProps) {
         <p className="mt-2 text-sm text-slate-500">Updated on {formatDate(page.updatedAt || page.createdAt)}</p>
 
         <div className="prose prose-slate mt-8 max-w-none overflow-hidden break-words">
-          <style>{`
+          <style suppressHydrationWarning>{`
             .prose {
               overflow-x: hidden;
             }

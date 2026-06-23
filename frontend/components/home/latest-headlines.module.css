@@ -22,12 +22,8 @@
   list-style: none;
   margin: 0;
   padding: 0.5rem 0;
-  animation: tickerScroll var(--ticker-duration, 24s) linear infinite;
-}
-
-.viewport {
   max-height: 430px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .item {
@@ -53,36 +49,12 @@
   color: #0c4a6e;
 }
 
-.viewport:hover .list {
-  animation-play-state: paused;
-}
-
-@keyframes tickerScroll {
-  from {
-    transform: translateY(0%);
-  }
-
-  to {
-    transform: translateY(-50%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .list {
-    animation: none;
-  }
-}
-
 @media (max-width: 1100px) {
   .panel {
     position: static;
   }
 
-  .viewport {
-    max-height: none;
-  }
-
   .list {
-    animation: none;
+    max-height: none;
   }
 }

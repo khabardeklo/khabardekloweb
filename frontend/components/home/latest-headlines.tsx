@@ -4,27 +4,22 @@ import styles from "./latest-headlines.module.css";
 
 type LatestHeadlinesProps = {
   items: HeadlineItem[];
-  speed?: number;
+  title?: string;
 };
 
-export function LatestHeadlines({ items, speed = 24000 }: LatestHeadlinesProps) {
-  const tickerItems = items.length > 0 ? [...items, ...items] : [];
-  const animationDuration = `${speed}ms`;
-
+export function LatestHeadlines({ items, title = "ताज़ा खबरें" }: LatestHeadlinesProps) {
   return (
     <aside className={styles.panel} aria-label="Taza khabrein">
-      <div className={styles.header}>ताज़ा खबरें</div>
-      <div className={styles.viewport}>
-        <ul className={styles.list} style={{ "--ticker-duration": animationDuration } as React.CSSProperties}>
-          {tickerItems.map((headline, index) => (
-            <li key={`${headline.slug}-${index}`} className={styles.item}>
-              <Link className={styles.link} href={`/news/${headline.slug}`}>
-                {headline.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <div className={styles.header}>{title}</div>
+      <ul className={styles.list}>
+        {items.map((headline) => (
+          <li key={headline.slug} className={styles.item}>
+            <Link className={styles.link} href={`/news/${headline.slug}`}>
+              {headline.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </aside>
   );
 }

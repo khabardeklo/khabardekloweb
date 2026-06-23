@@ -11,11 +11,12 @@ type NavItem = {
 type DashboardHeaderProps = {
   title: string;
   navItems: NavItem[];
+  accentColor?: string;
 };
 
-export function DashboardHeader({ title, navItems }: DashboardHeaderProps) {
-  void title;
-  void navItems;
+export function DashboardHeader({ title, navItems, accentColor }: DashboardHeaderProps) {
+  void accentColor;
+  const headerLinks = navItems.slice(0, 4);
 
   return (
     <header className="sticky top-0 z-30 border-b border-white/70 bg-white/80 backdrop-blur-xl">
@@ -23,9 +24,21 @@ export function DashboardHeader({ title, navItems }: DashboardHeaderProps) {
         <div className="flex items-center justify-between gap-3">
           {/* Logo */}
           <Link href="/dashboard" className="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2 shadow-sm flex-shrink-0">
-            <span className="h-3 w-3 rounded-full bg-gradient-to-r from-blue-500 to-emerald-400" />
-            <span className="text-sm font-black tracking-tight text-slate-950 hidden sm:inline">Khabar Deklo Admin</span>
+            <span className="h-3 w-3 rounded-full bg-sky-600" />
+            <span className="text-sm font-black tracking-tight text-slate-950 hidden sm:inline">{title}</span>
           </Link>
+
+          <nav className="hidden items-center gap-2 lg:flex">
+            {headerLinks.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-sky-300 hover:text-sky-700"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
 
           {/* Logout - Visible on all devices */}
           <LogoutButton />

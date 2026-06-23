@@ -17,8 +17,10 @@ type ReporterPost = {
   title: string;
   content: string;
   category: string;
+  description?: string;
   tags?: string[];
   isPublished: boolean;
+  scheduledAt?: string | null;
   createdAt: string;
   authorId: {
     _id: string;
@@ -31,8 +33,10 @@ type ReporterPost = {
 type ReporterPostRow = NewsRow & {
   id: string;
   content: string;
+  description?: string;
   tags: string[];
   isPublished: boolean;
+  scheduledAt?: string | null;
 };
 
 type ReporterPage = {
@@ -51,6 +55,7 @@ type ReporterPage = {
 };
 
 type PageRow = {
+  id: string;
   title: string;
   templateType: string;
   status: string;
@@ -115,11 +120,13 @@ export default function ReporterWorkspacePage() {
                 id: post._id,
                 title: post.title,
                 content: post.content || "",
+                description: post.description || "",
                 tags: post.tags || [],
                 author: post.authorId?.name || "Unknown",
                 category: post.category,
                 status: post.isPublished ? "Published" : "Draft",
                 isPublished: post.isPublished,
+                scheduledAt: post.scheduledAt || null,
               }));
             setPosts(reporterPosts);
           }
@@ -135,6 +142,7 @@ export default function ReporterWorkspacePage() {
                 return authorId === currentReporterId;
               })
               .map((page) => ({
+                id: page._id,
                 title: page.title,
                 templateType: page.templateType,
                 status: page.isPublished ? "Published" : "Draft",
@@ -150,7 +158,7 @@ export default function ReporterWorkspacePage() {
     };
 
     void loadReporterData();
-  }, [refreshKey, reporterId]);
+  }, [refreshKey]); // reporterId intentionally excluded - we fetch it fresh each time
 
   const handleSuccess = () => {
     setEditingPost(null);
@@ -180,12 +188,9 @@ export default function ReporterWorkspacePage() {
     }
   };
 
-  const handleDeletePage = async (title: string) => {
-    const page = pages.find((p) => p.title === title);
-    if (!page) return;
-
+  const handleDeletePage = async (id: string) => {
     try {
-      const response = await fetch(`${backendUrl}/pages/${title}`, {
+      const response = await fetch(`${backendUrl}/pages/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -195,7 +200,7 @@ export default function ReporterWorkspacePage() {
         throw new Error(data?.message || "Failed to delete page");
       }
 
-      setPages(pages.filter((p) => p.title !== title));
+      setPages(pages.filter((p) => p.id !== id));
       setDeleteConfirm(null);
     } catch (error) {
       console.error("Delete error:", error);
@@ -218,7 +223,8 @@ export default function ReporterWorkspacePage() {
       if (!deleteConfirm.id) return;
       await handleDeletePost(deleteConfirm.id);
     } else {
-      await handleDeletePage(deleteConfirm.title);
+      if (!deleteConfirm.id) return;
+      await handleDeletePage(deleteConfirm.id);
     }
   };
 
@@ -304,9 +310,11 @@ export default function ReporterWorkspacePage() {
                     id: editingPost.id,
                     title: editingPost.title,
                     category: editingPost.category,
+                    description: editingPost.description,
                     content: editingPost.content,
                     tags: editingPost.tags,
                     isPublished: editingPost.isPublished,
+                    scheduledAt: editingPost.scheduledAt,
                   }
                 : null
             }
@@ -330,8 +338,8 @@ export default function ReporterWorkspacePage() {
           <ReporterPagesList
             pages={pages}
             isLoading={loading}
-            onDelete={(title) => handleDelete("page", title)}
-            onEdit={() => alert("Edit functionality coming soon")}
+            onDelete={(id) => handleDelete("page", "", id)}
+            onEdit={(id) => alert("Edit functionality coming soon")}
           />
         </section>
       )}

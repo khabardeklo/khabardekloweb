@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { User, UserRole } from "../models/User";
 import { signAccessToken, signRefreshToken, verifyRefreshToken } from "../utils/tokens";
-import type { AuthPayload, JwtUser } from "../types/auth";
+import type { AuthPayload, JwtUser, LoginPayload } from "../types/auth";
 
 export const registerUser = async (payload: AuthPayload) => {
   const existing = await User.findOne({ email: payload.email });
@@ -26,7 +26,7 @@ export const registerUser = async (payload: AuthPayload) => {
   };
 };
 
-export const loginUser = async (payload: AuthPayload) => {
+export const loginUser = async (payload: LoginPayload) => {
   const user = await User.findOne({ email: payload.email });
 
   if (!user) {
@@ -36,6 +36,13 @@ export const loginUser = async (payload: AuthPayload) => {
   const isMatch = await bcrypt.compare(payload.password, user.password);
   if (!isMatch) {
     return { status: 401, message: "Invalid credentials" };
+  }
+
+  if (user.role !== payload.role) {
+    return {
+      status: 403,
+      message: payload.role === "reporter" ? "This login is for reporter accounts." : "Please use a Super Admin account.",
+    };
   }
 
   if (user.role === "reporter") {

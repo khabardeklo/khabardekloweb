@@ -8,15 +8,36 @@ type HomeContentLayoutProps = {
   news: HomeNewsItem[];
   headlines: HeadlineItem[];
   ads: AdBannerItem[];
-  tickerSpeed?: number;
+  showHeadlinesRail?: boolean;
+  showNewsFeed?: boolean;
+  showAdsRail?: boolean;
+  headlinesTitle?: string;
+  newsFeedEyebrow?: string;
+  newsFeedTitle?: string;
+  adsTitle?: string;
+  headlinesLimit?: number;
+  adsLimit?: number;
 };
 
-export function HomeContentLayout({ news, headlines, ads, tickerSpeed = 24000 }: HomeContentLayoutProps) {
+export function HomeContentLayout({
+  news,
+  headlines,
+  ads,
+  showHeadlinesRail = true,
+  showNewsFeed = true,
+  showAdsRail = true,
+  headlinesTitle = "ताज़ा खबरें",
+  newsFeedEyebrow = "Top Stories",
+  newsFeedTitle = "Khabar Deklo News Feed",
+  adsTitle = "Sponsored",
+  headlinesLimit,
+  adsLimit,
+}: HomeContentLayoutProps) {
   return (
     <section className={styles.wrapper} aria-label="Homepage content columns">
-      <LatestHeadlines items={headlines} speed={tickerSpeed} />
-      <NewsFeedList items={news} />
-      <AdsRail items={ads} />
+      {showHeadlinesRail ? <LatestHeadlines items={headlines.slice(0, headlinesLimit ?? headlines.length)} title={headlinesTitle} /> : null}
+      {showNewsFeed ? <NewsFeedList items={news} eyebrow={newsFeedEyebrow} title={newsFeedTitle} /> : null}
+      {showAdsRail ? <AdsRail items={ads.slice(0, adsLimit ?? ads.length)} title={adsTitle} /> : null}
     </section>
   );
 }

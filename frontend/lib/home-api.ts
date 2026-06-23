@@ -37,6 +37,37 @@ type BackendAdItem = {
 type BackendSettings = {
   tickerSpeed?: number;
   maxNewsPerPage?: number;
+  homepage?: {
+    blockOrder?: string[];
+    showBigNewsGrid?: boolean;
+    showTopStories?: boolean;
+    showMediaHighlights?: boolean;
+    showContentColumns?: boolean;
+    showHeadlinesRail?: boolean;
+    showAdsRail?: boolean;
+    bigNewsTitle?: string;
+    bigNewsCtaLabel?: string;
+    bigNewsCtaHref?: string;
+    topStoriesTitle?: string;
+    topStoriesCtaLabel?: string;
+    topStoriesCtaHref?: string;
+    videoSectionTitle?: string;
+    videoSectionCtaLabel?: string;
+    videoSectionCtaHref?: string;
+    photosSectionTitle?: string;
+    photosSectionCtaLabel?: string;
+    photosSectionCtaHref?: string;
+    newsFeedEyebrow?: string;
+    newsFeedTitle?: string;
+    headlinesTitle?: string;
+    adsTitle?: string;
+    bigNewsLimit?: number;
+    topStoriesLimit?: number;
+    videoSectionLimit?: number;
+    photosSectionLimit?: number;
+    headlinesLimit?: number;
+    adsLimit?: number;
+  };
 };
 
 const backendUrl =
@@ -79,18 +110,18 @@ const mapNews = (items: BackendNewsItem[]): HomeNewsItem[] => {
     }));
 };
 
-const mapHeadlines = (items: HomeNewsItem[]): HeadlineItem[] => {
-  return items.slice(0, 12).map((item) => ({
+const mapHeadlines = (items: HomeNewsItem[], limit: number): HeadlineItem[] => {
+  return items.slice(0, limit).map((item) => ({
     title: item.title,
     slug: item.slug,
   }));
 };
 
-const mapAds = (items: BackendAdItem[]): AdBannerItem[] => {
+const mapAds = (items: BackendAdItem[], limit: number): AdBannerItem[] => {
   return items
     .filter((item) => item.isActive !== false)
     .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
-    .slice(0, 4)
+    .slice(0, limit)
     .map((item) => ({
       title: item.title || "Sponsored",
       description: item.description || "Promote your brand with high visibility.",
@@ -121,15 +152,20 @@ export const getHomePageData = async (): Promise<{
   ads: AdBannerItem[];
   settings: BackendSettings;
 }> => {
-  const [newsResponse, adsResponse, settingsResponse] = await Promise.all([
-    fetchJson<BackendNewsResponse>(`${backendUrl}/news/published?skip=0&limit=10`),
+  const settingsResponse = await fetchJson<BackendSettings>(`${backendUrl}/settings`);
+  const newsLimit = Math.max(1, settingsResponse?.maxNewsPerPage || 10);
+  const homepageSettings = settingsResponse?.homepage;
+  const headlinesLimit = Math.max(1, homepageSettings?.headlinesLimit || 12);
+  const adsLimit = Math.max(1, homepageSettings?.adsLimit || 4);
+
+  const [newsResponse, adsResponse] = await Promise.all([
+    fetchJson<BackendNewsResponse>(`${backendUrl}/news/published?skip=0&limit=${newsLimit}`),
     fetchJson<BackendAdItem[]>(`${backendUrl}/ads/public`),
-    fetchJson<BackendSettings>(`${backendUrl}/settings`),
   ]);
 
   const mappedNews = newsResponse?.data?.length ? mapNews(newsResponse.data) : homeNewsFeed;
-  const mappedHeadlines = mappedNews.length ? mapHeadlines(mappedNews) : latestHeadlines;
-  const mappedAds = adsResponse?.length ? mapAds(adsResponse) : adBanners;
+  const mappedHeadlines = mappedNews.length ? mapHeadlines(mappedNews, headlinesLimit) : latestHeadlines.slice(0, headlinesLimit);
+  const mappedAds = adsResponse?.length ? mapAds(adsResponse, adsLimit) : adBanners.slice(0, adsLimit);
 
   return {
     news: mappedNews,

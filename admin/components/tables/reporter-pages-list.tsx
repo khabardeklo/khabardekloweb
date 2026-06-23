@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
 type PageRow = {
+  id: string;
   title: string;
   templateType: string;
   status: string;
@@ -11,8 +10,8 @@ type PageRow = {
 type ReporterPagesListProps = {
   pages: PageRow[];
   isLoading?: boolean;
-  onDelete?: (title: string) => void;
-  onEdit?: (title: string) => void;
+  onDelete?: (id: string) => void;
+  onEdit?: (id: string) => void;
 };
 
 export function ReporterPagesList({ pages, isLoading = false, onDelete, onEdit }: ReporterPagesListProps) {
@@ -29,7 +28,7 @@ export function ReporterPagesList({ pages, isLoading = false, onDelete, onEdit }
           <div className="px-6 py-10 text-sm text-slate-500">No pages created yet. Create one to get started.</div>
         ) : (
           pages.map((page) => (
-            <div key={page.title} className="grid gap-3 p-6 md:grid-cols-[1.5fr_0.7fr_0.5fr_0.8fr] md:items-center">
+            <div key={page.id} className="grid gap-3 p-6 md:grid-cols-[1.5fr_0.7fr_0.5fr_0.8fr] md:items-center">
               <div>
                 <h3 className="font-semibold text-slate-950">{page.title}</h3>
               </div>
@@ -39,13 +38,13 @@ export function ReporterPagesList({ pages, isLoading = false, onDelete, onEdit }
               </span>
               <div className="flex gap-2">
                 <button
-                  onClick={() => onEdit?.(page.title)}
+                  onClick={() => onEdit?.(page.id)}
                   className="rounded-lg bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-600 hover:bg-blue-100 transition"
                 >
                   Edit
                 </button>
                 <button
-                  onClick={() => onDelete?.(page.title)}
+                  onClick={() => onDelete?.(page.id)}
                   className="rounded-lg bg-red-50 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-100 transition"
                 >
                   Delete

@@ -1,26 +1,56 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { PageRow } from "@/types";
 
 type PagesListProps = {
   pages: PageRow[];
   categories: Array<{ label: string; value: string }>;
-  onDelete?: (title: string) => void;
+  onDelete?: (id: string) => void;
 };
+
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
 
 export function PagesList({ pages: initialPages, categories, onDelete }: PagesListProps) {
   const [pages, setPages] = useState(initialPages);
   const [activeCategory, setActiveCategory] = useState(categories[0]?.value || "");
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setPages(initialPages);
+  }, [initialPages]);
+
+  useEffect(() => {
+    if (!categories.some((category) => category.value === activeCategory)) {
+      setActiveCategory(categories[0]?.value || "");
+    }
+  }, [categories, activeCategory]);
 
   const filteredPages = pages.filter((page) => page.category === activeCategory);
 
-  const handleDelete = (title: string) => {
-    setPages(pages.filter((page) => page.title !== title));
-    onDelete?.(title);
-    setDeleteConfirm(null);
+  const handleDelete = async (id: string) => {
+    setDeleting(true);
+    setDeleteError(null);
+    try {
+      const response = await fetch(`${backendUrl}/pages/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (!response.ok) {
+        const data = (await response.json().catch(() => null)) as { message?: string } | null;
+        throw new Error(data?.message || "Failed to delete page");
+      }
+      setPages(pages.filter((page) => page.id !== id));
+      onDelete?.(id);
+      setDeleteConfirm(null);
+    } catch (error) {
+      setDeleteError(error instanceof Error ? error.message : "Failed to delete page");
+    } finally {
+      setDeleting(false);
+    }
   };
 
   return (
@@ -75,7 +105,7 @@ export function PagesList({ pages: initialPages, categories, onDelete }: PagesLi
                 </tr>
               ) : (
                 filteredPages.map((page) => (
-                  <tr key={page.title} className="hover:bg-slate-50 transition">
+                  <tr key={page.id || page.title} className="hover:bg-slate-50 transition">
                     <td className="px-6 py-4">
                       <p className="font-medium text-slate-950">{page.title}</p>
                     </td>
@@ -100,15 +130,16 @@ export function PagesList({ pages: initialPages, categories, onDelete }: PagesLi
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex justify-end gap-2">
-                        <button
-                          onClick={() => {/* TODO: Edit page */}}
+                        <Link
+                          href={page.id ? `/create-pages?editId=${encodeURIComponent(page.id)}` : "/create-pages"}
                           className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition"
                         >
                           ✏️ Edit
-                        </button>
+                        </Link>
                         <button
-                          onClick={() => setDeleteConfirm(page.title)}
-                          className="inline-flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-100 transition"
+                          onClick={() => page.id && setDeleteConfirm(page.id)}
+                          disabled={!page.id}
+                          className="inline-flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-100 transition disabled:opacity-50"
                         >
                           🗑️ Delete
                         </button>
@@ -128,18 +159,21 @@ export function PagesList({ pages: initialPages, categories, onDelete }: PagesLi
           <div className="rounded-lg bg-white p-6 shadow-lg max-w-sm w-full mx-4">
             <h3 className="text-lg font-bold text-slate-950">Delete Page?</h3>
             <p className="mt-2 text-slate-600">Are you sure you want to delete this page? This action cannot be undone.</p>
+            {deleteError ? <p className="mt-2 text-sm text-red-600">{deleteError}</p> : null}
             <div className="mt-6 flex gap-3">
               <button
-                onClick={() => setDeleteConfirm(null)}
-                className="flex-1 rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition"
+                onClick={() => { setDeleteConfirm(null); setDeleteError(null); }}
+                disabled={deleting}
+                className="flex-1 rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition disabled:opacity-50"
               >
                 Cancel
               </button>
               <button
-                onClick={() => handleDelete(deleteConfirm)}
-                className="flex-1 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700 transition"
+                onClick={() => void handleDelete(deleteConfirm)}
+                disabled={deleting}
+                className="flex-1 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700 transition disabled:opacity-50"
               >
-                Delete
+                {deleting ? "Deleting..." : "Delete"}
               </button>
             </div>
           </div>

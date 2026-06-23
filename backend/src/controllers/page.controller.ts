@@ -10,6 +10,7 @@ import {
   updatePageItem,
 } from "../services/page.service";
 import { isValidPagePayload, isValidTemplateType } from "../validations/page.validation";
+import { Page } from "../models/Page";
 
 export const createPage = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   if (!req.user) {
@@ -31,6 +32,18 @@ export const createPage = async (req: AuthenticatedRequest, res: Response): Prom
 export const getAllPages = async (_req: AuthenticatedRequest, res: Response): Promise<void> => {
   const pages = await listPages();
   res.json(pages);
+};
+
+export const getPageById = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const page = await Page.findById(id).populate("authorId", "name email role");
+
+  if (!page) {
+    res.status(404).json({ message: "Page not found" });
+    return;
+  }
+
+  res.json(page);
 };
 
 export const getPublicPages = async (req: Request, res: Response): Promise<void> => {

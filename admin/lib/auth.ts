@@ -39,7 +39,7 @@ export const loginWithRole = async (role: LoginRole, email: string, password: st
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password, role }),
   });
 
   const data = (await response.json()) as LoginResponse;

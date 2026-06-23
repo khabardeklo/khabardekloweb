@@ -15,6 +15,7 @@ export type UserRow = {
 };
 
 export type PageRow = {
+  id?: string;
   title: string;
   category: string;
   status: string;
