@@ -184,6 +184,60 @@ body {
   .article-prose h3 { font-size: 1.1rem; }
 }
 
+/* Mobile-optimized base styles */
+@media (max-width: 640px) {
+  html {
+    font-size: 15px;
+  }
+  
+  body {
+    font-size: 14px;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  /* Better touch targets on mobile (min 44px × 44px) */
+  button, a[href], input[type="button"], input[type="submit"] {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+    padding: 0.625rem 1rem;
+  }
+  
+  /* Reduce excessive spacing on mobile */
+  header { margin-bottom: 0.25rem; }
+  
+  /* Improve readability on small screens */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Improve images on mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Improve touch spacing */
+@media (max-width: 768px) {
+  input, textarea, select {
+    font-size: 16px;
+  }
+}
+
+/* Better text readability on tablets and small devices */
+@media (min-width: 641px) and (max-width: 1024px) {
+  body {
+    font-size: 15px;
+  }
+  
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+}
+
 /* Utility: line clamp */
 .line-clamp-2 {
   display: -webkit-box;

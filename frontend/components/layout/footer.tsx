@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import type { PublicSiteSettings } from "@/lib/site-settings-api";
+import { useLang } from "@/lib/language-context";
 
 type FooterPageItem = {
   _id: string;
@@ -60,6 +62,7 @@ const SOCIAL_LINKS = [
 const CATEGORIES = ["राजनीति", "खेल", "बिजनेस", "मनोरंजन", "टेक्नोलॉजी", "हेल्थ", "विश्व", "शिक्षा"];
 
 export function Footer({ footerPages, customPages, siteSettings }: FooterProps) {
+  const { t } = useLang();
   const maxFooterLinks = Math.max(1, siteSettings.layout.maxFooterLinks || 8);
   const managedLinks = siteSettings.footerLinks.filter((link) => link.isActive !== false);
   const visibleLinks = [...footerPages, ...customPages].slice(0, maxFooterLinks);
@@ -68,28 +71,28 @@ export function Footer({ footerPages, customPages, siteSettings }: FooterProps) 
   return (
     <footer className="bg-slate-950 text-slate-300">
       {/* Main Footer Grid */}
-      <div className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block">
               <span
-                className="font-heading text-2xl font-black text-white"
+                className="font-heading text-xl sm:text-2xl font-black text-white"
                 style={{ fontFamily: "'Poppins', sans-serif" }}
               >
                 {siteSettings.siteName || "Khabar Deklo"}
               </span>
             </Link>
-            <p className="mt-3 text-sm leading-6 text-slate-400">
+            <p className="mt-2 sm:mt-3 text-xs sm:text-sm leading-6 text-slate-400">
               {siteSettings.siteDescription || "Your trusted source for the latest news in Hindi and English."}
             </p>
-            <div className="mt-5 flex items-center gap-2">
+            <div className="mt-4 sm:mt-5 flex items-center gap-2">
               {SOCIAL_LINKS.map((s) => (
                 <a
                   key={s.name}
                   href={s.href}
                   aria-label={s.name}
-                  className={`flex h-8 w-8 items-center justify-center rounded-lg bg-slate-800 text-slate-300 transition ${s.hoverClass} hover:text-white`}
+                  className={`flex h-9 sm:h-8 w-9 sm:w-8 items-center justify-center rounded-lg bg-slate-800 text-slate-300 transition ${s.hoverClass} hover:text-white`}
                 >
                   {s.icon}
                 </a>
@@ -99,13 +102,13 @@ export function Footer({ footerPages, customPages, siteSettings }: FooterProps) 
 
           {/* Categories */}
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-500">Categories</p>
+            <p className="mb-3 sm:mb-4 text-xs font-bold uppercase tracking-widest text-slate-500">Categories</p>
             <ul className="space-y-2">
               {CATEGORIES.map((cat) => (
                 <li key={cat}>
                   <Link
                     href={`/category/${encodeURIComponent(cat)}`}
-                    className="text-sm text-slate-400 transition hover:text-white"
+                    className="text-xs sm:text-sm text-slate-400 transition hover:text-white"
                     style={{ fontFamily: "'Noto Sans Devanagari', sans-serif" }}
                   >
                     {cat}
@@ -117,7 +120,7 @@ export function Footer({ footerPages, customPages, siteSettings }: FooterProps) 
 
           {/* Quick Links */}
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-500">Quick Links</p>
+            <p className="mb-3 sm:mb-4 text-xs font-bold uppercase tracking-widest text-slate-500">Quick Links</p>
             <ul className="space-y-2">
               {linksToRender.length > 0
                 ? linksToRender.map((link) => {
@@ -128,7 +131,7 @@ export function Footer({ footerPages, customPages, siteSettings }: FooterProps) 
                       : (link as { label: string }).label;
                     return (
                       <li key={href}>
-                        <Link href={href} className="text-sm text-slate-400 transition hover:text-white">
+                        <Link href={href} className="text-xs sm:text-sm text-slate-400 transition hover:text-white">
                           {label}
                         </Link>
                       </li>
@@ -142,7 +145,7 @@ export function Footer({ footerPages, customPages, siteSettings }: FooterProps) 
                     { label: "Advertise", href: "/pages/advertise" },
                   ].map((link) => (
                     <li key={link.href}>
-                      <Link href={link.href} className="text-sm text-slate-400 transition hover:text-white">
+                      <Link href={link.href} className="text-xs sm:text-sm text-slate-400 transition hover:text-white">
                         {link.label}
                       </Link>
                     </li>
@@ -152,9 +155,9 @@ export function Footer({ footerPages, customPages, siteSettings }: FooterProps) 
 
           {/* Newsletter */}
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-500">Newsletter</p>
-            <p className="mb-4 text-sm leading-6 text-slate-400">
-              Get top news delivered to your inbox every morning. No spam.
+            <p className="mb-3 sm:mb-4 text-xs font-bold uppercase tracking-widest text-slate-500">{t.newsletter}</p>
+            <p className="mb-3 sm:mb-4 text-xs sm:text-sm leading-6 text-slate-400">
+              {t.newsletterDesc}
             </p>
             <form
               action="/api/newsletter"
@@ -164,14 +167,14 @@ export function Footer({ footerPages, customPages, siteSettings }: FooterProps) 
             >
               <input
                 type="email"
-                placeholder="your@email.com"
-                className="rounded-lg border border-slate-700 bg-slate-800 px-3 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30"
+                placeholder={t.yourEmail}
+                className="rounded-lg border border-slate-700 bg-slate-800 px-3 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30"
               />
               <button
                 type="submit"
-                className="rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-500 active:scale-95"
+                className="rounded-lg bg-sky-600 px-4 py-2.5 sm:py-2 text-xs sm:text-sm font-semibold text-white transition hover:bg-sky-500 active:scale-95 min-h-10"
               >
-                Subscribe →
+                {t.subscribe} →
               </button>
             </form>
           </div>
@@ -180,19 +183,19 @@ export function Footer({ footerPages, customPages, siteSettings }: FooterProps) 
 
       {/* Bottom Bar */}
       <div className="border-t border-slate-800">
-        <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-5 sm:px-6 lg:px-8">
-          <p className="text-xs text-slate-500">
+        <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:py-5 sm:px-6 lg:px-8">
+          <p className="text-xs text-slate-500 flex-1 sm:flex-none">
             {siteSettings.copyrightText || `© ${new Date().getFullYear()} Khabar Deklo. All rights reserved.`}
           </p>
-          <div className="flex flex-wrap gap-4 text-xs text-slate-500">
+          <div className="flex flex-wrap gap-3 sm:gap-4 text-xs text-slate-500">
             <Link href="/pages/privacy-policy" className="transition hover:text-slate-300">
-              Privacy Policy
+              {t.privacy}
             </Link>
             <Link href="/pages/terms" className="transition hover:text-slate-300">
-              Terms
+              {t.terms}
             </Link>
             <Link href="/pages/advertise" className="transition hover:text-slate-300">
-              Advertise
+              {t.advertise}
             </Link>
           </div>
         </div>

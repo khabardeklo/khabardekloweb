@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 type Role = "admin" | "editor" | "author" | "reporter";
 
-const protectedAdminRoutes = ["/dashboard", "/create-pages", "/categories", "/users", "/reporter-management", "/analytics", "/settings"];
+const protectedAdminRoutes = ["/dashboard", "/create-pages", "/categories", "/users", "/reporter-management", "/analytics", "/settings", "/import-news", "/posts", "/pages", "/comments", "/earnings", "/layout", "/theme", "/reporter-apply"];
 const reporterRoutes = ["/reporter", "/news"];
 
 const decodeRole = (token: string): Role | null => {
@@ -74,5 +74,13 @@ export const config = {
     "/reporter-management/:path*",
     "/analytics/:path*",
     "/settings/:path*",
+    "/import-news/:path*",
+    "/posts/:path*",
+    "/pages/:path*",
+    "/comments/:path*",
+    "/earnings/:path*",
+    "/layout/:path*",
+    "/theme/:path*",
+    "/reporter-apply/:path*",
   ],
 };

@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import type { HomeNewsItem } from "@/lib/home-content";
+import { useLang } from "@/lib/language-context";
 
 type TopStoriesSectionProps = {
   items: HomeNewsItem[];
@@ -9,7 +11,10 @@ type TopStoriesSectionProps = {
   limit?: number;
 };
 
-export function TopStoriesSection({ items, title = "Top Story", ctaLabel = "More Stories", ctaHref = "/news", limit = 5 }: TopStoriesSectionProps) {
+export function TopStoriesSection({ items, title, ctaLabel, ctaHref = "/news", limit = 5 }: TopStoriesSectionProps) {
+  const { t } = useLang();
+  const resolvedTitle = title ?? t.topStories;
+  const resolvedCtaLabel = ctaLabel ?? t.moreStories;
   const [featured, ...rest] = items.slice(0, limit);
 
   if (!featured) {
@@ -19,12 +24,12 @@ export function TopStoriesSection({ items, title = "Top Story", ctaLabel = "More
   return (
     <section aria-label="Top story" className="mb-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl">{title}</h2>
+        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl">{resolvedTitle}</h2>
         <Link
           href={ctaHref}
           className="rounded-full border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-sky-300 hover:text-sky-700"
         >
-          {ctaLabel}
+          {resolvedCtaLabel}
         </Link>
       </div>
 
@@ -52,6 +57,9 @@ export function TopStoriesSection({ items, title = "Top Story", ctaLabel = "More
                   {item.title}
                 </Link>
               </h3>
+              {item.description && (
+                <p className="mt-1 line-clamp-2 text-[11px] text-slate-500">{item.description}</p>
+              )}
               <p className="mt-1 text-[11px] text-slate-500">{item.publishedAt}</p>
             </article>
           ))}

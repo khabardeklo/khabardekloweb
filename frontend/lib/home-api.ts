@@ -4,6 +4,7 @@ import type { AdBannerItem, HeadlineItem, HomeNewsItem } from "@/lib/home-conten
 type BackendNewsItem = {
   title?: string;
   slug?: string;
+  description?: string;
   imageUrl?: string;
   category?: string;
   createdAt?: string;
@@ -102,6 +103,7 @@ const mapNews = (items: BackendNewsItem[]): HomeNewsItem[] => {
       image: item.imageUrl || homeNewsFeed[index % homeNewsFeed.length]?.image || "/news/news-1.svg",
       category: item.category || "General",
       publishedAt: toDateLabel(item.createdAt),
+      description: item.description || undefined,
       author: item.authorId ? {
         id: item.authorId._id || "",
         name: item.authorId.name || "Unknown",

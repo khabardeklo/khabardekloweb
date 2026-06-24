@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { HomeNewsItem } from "@/lib/home-content";
 import { getPublishedNews } from "@/lib/home-api";
+import { useLang } from "@/lib/language-context";
 import styles from "./news-feed-list.module.css";
 
 type NewsFeedListProps = {
@@ -12,7 +13,10 @@ type NewsFeedListProps = {
   title?: string;
 };
 
-export function NewsFeedList({ items: initialItems, eyebrow = "Top Stories", title = "Khabar Deklo News Feed" }: NewsFeedListProps) {
+export function NewsFeedList({ items: initialItems, eyebrow, title }: NewsFeedListProps) {
+  const { t } = useLang();
+  const resolvedEyebrow = eyebrow ?? t.newsFeedEyebrow;
+  const resolvedTitle = title ?? t.newsFeedTitle;
   const [items, setItems] = useState(initialItems);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(initialItems.length >= 10);
@@ -65,8 +69,8 @@ export function NewsFeedList({ items: initialItems, eyebrow = "Top Stories", tit
   return (
     <section className={styles.panel} aria-label="Latest news feed">
       <div className={styles.headerRow}>
-        <p className={styles.eyebrow}>{eyebrow}</p>
-        <h1 className={styles.title}>{title}</h1>
+        <p className={styles.eyebrow}>{resolvedEyebrow}</p>
+        <h1 className={styles.title}>{resolvedTitle}</h1>
       </div>
 
       <div className={styles.list}>
@@ -94,6 +98,9 @@ export function NewsFeedList({ items: initialItems, eyebrow = "Top Stories", tit
                   {item.title}
                 </Link>
               </h2>
+              {item.description && (
+                <p className={styles.description}>{item.description}</p>
+              )}
             </div>
           </article>
         ))}
@@ -101,10 +108,10 @@ export function NewsFeedList({ items: initialItems, eyebrow = "Top Stories", tit
 
       {hasMore ? (
         <div ref={observerTarget} className={styles.loadingTrigger}>
-          {isLoading ? <p className={styles.loadingText}>Loading more stories...</p> : null}
+          {isLoading ? <p className={styles.loadingText}>{t.loadingMore}</p> : null}
         </div>
       ) : (
-        <p className={styles.endMessage}>No more stories available.</p>
+        <p className={styles.endMessage}>{t.noMoreStories}</p>
       )}
     </section>
   );

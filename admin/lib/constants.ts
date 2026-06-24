@@ -19,6 +19,7 @@ export const superAdminNav = adminNav;
 
 export const adminSidebarNav = [
   { label: "Posts", href: "/posts", icon: "📝" },
+  { label: "Import News", href: "/import-news", icon: "📥" },
   { label: "Pages", href: "/pages", icon: "📄" },
   { label: "Comments", href: "/comments", icon: "💬" },
   { label: "Users", href: "/users", icon: "👥" },

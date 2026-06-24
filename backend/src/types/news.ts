@@ -5,6 +5,7 @@ export type NewsPayload = {
   description?: string;
   tags?: string[];
   imageUrl?: string;
+  sourceUrl?: string;
   isPublished?: boolean;
   scheduledAt?: string | null;
 };

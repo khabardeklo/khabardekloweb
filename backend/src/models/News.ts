@@ -8,6 +8,7 @@ export interface INews extends Document {
   description?: string;
   tags: string[];
   imageUrl?: string;
+  sourceUrl?: string;
   isPublished: boolean;
   scheduledAt?: Date | null;
   facebookPostId?: string | null;
@@ -27,6 +28,7 @@ const newsSchema = new Schema<INews>(
     description: { type: String, trim: true, default: "" },
     tags: [{ type: String }],
     imageUrl: { type: String },
+    sourceUrl: { type: String, default: null },
     isPublished: { type: Boolean, default: false },
     scheduledAt: { type: Date, default: null },
     facebookPostId: { type: String, default: null },

@@ -4,6 +4,7 @@ export type HomeNewsItem = {
   image: string;
   category: string;
   publishedAt: string;
+  description?: string;
   author?: {
     id: string;
     name: string;

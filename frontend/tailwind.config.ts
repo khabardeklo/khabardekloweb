@@ -3,6 +3,14 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   theme: {
+    screens: {
+      'xs': '320px',
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
     extend: {
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
@@ -52,6 +60,15 @@ const config: Config = {
             lineHeight: "1.8",
           },
         },
+      },
+      spacing: {
+        '4.5': '1.125rem',
+      },
+      minHeight: {
+        '10': '2.5rem',
+      },
+      minWidth: {
+        '10': '2.5rem',
       },
     },
   },

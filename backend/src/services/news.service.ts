@@ -73,6 +73,7 @@ export const createNewsItem = async (payload: NewsPayload, authorId: string) => 
     description: payload.description?.trim() || "",
     tags: payload.tags || [],
     imageUrl: payload.imageUrl,
+    sourceUrl: payload.sourceUrl || null,
     isPublished: Boolean(payload.isPublished),
     scheduledAt: parseScheduledAt(payload.scheduledAt),
     authorId,

@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { CategoriesMenu } from "./categories-menu";
+import { LanguageToggle } from "@/components/ui/language-toggle";
+import { useLang } from "@/lib/language-context";
 import type { PublicSiteSettings } from "@/lib/site-settings-api";
 
 type HeaderPageItem = {
@@ -19,13 +21,21 @@ type HeaderProps = {
   siteSettings: PublicSiteSettings;
 };
 
-const BREAKING_NEWS = [
-  "Breaking: Latest updates from across India and the world",
-  "Today's top stories — Politics, Sports, Business & more",
-  "Stay informed with Khabar Deklo — Your trusted news source",
+const HEADER_CATEGORIES = [
+  { key: "catPolitics" as const, slug: "राजनीति" },
+  { key: "catSports" as const, slug: "खेल" },
+  { key: "catBusiness" as const, slug: "बिजनेस" },
+  { key: "catEntertainment" as const, slug: "मनोरंजन" },
+  { key: "catTechnology" as const, slug: "टेक्नोलॉजी" },
+  { key: "catHealth" as const, slug: "हेल्थ" },
+  { key: "catWorld" as const, slug: "विश्व" },
+  { key: "catEducation" as const, slug: "शिक्षा" },
+  { key: "catAuto" as const, slug: "ऑटो" },
+  { key: "catScience" as const, slug: "साइंस" },
 ];
 
 export function Header({ headerPages, menuPages, siteSettings }: HeaderProps) {
+  const { t } = useLang();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -61,11 +71,11 @@ export function Header({ headerPages, menuPages, siteSettings }: HeaderProps) {
       <div className="bg-red-600 text-white overflow-hidden" style={{ height: "36px" }}>
         <div className="mx-auto flex h-full w-full max-w-7xl items-center px-4 sm:px-6 lg:px-8">
           <span className="mr-3 flex-shrink-0 rounded bg-white px-2 py-0.5 text-[11px] font-black uppercase tracking-widest text-red-600">
-            Breaking
+            {t.breaking}
           </span>
           <div className="relative flex-1 overflow-hidden">
             <div className="ticker-track text-[13px] font-medium">
-              {[...BREAKING_NEWS, ...BREAKING_NEWS].map((item, i) => (
+              {[...t.breakingItems, ...t.breakingItems].map((item, i) => (
                 <span key={i} className="mr-16">
                   {item}
                 </span>
@@ -76,7 +86,7 @@ export function Header({ headerPages, menuPages, siteSettings }: HeaderProps) {
       </div>
 
       {/* Main Header */}
-      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur-md">
+      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur-md">
         {/* Top bar — date + social */}
         <div className="hidden border-b border-slate-100 bg-slate-50 lg:block">
           <div className="mx-auto flex h-8 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -107,12 +117,12 @@ export function Header({ headerPages, menuPages, siteSettings }: HeaderProps) {
         </div>
 
         {/* Main Nav */}
-        <div className="mx-auto flex h-16 w-full max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-14 sm:h-16 w-full max-w-7xl items-center gap-2 sm:gap-3 px-3 sm:px-6 lg:px-8">
           {/* Hamburger */}
           <button
             type="button"
             onClick={() => setIsMenuOpen(true)}
-            className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition hover:bg-slate-100"
+            className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition hover:bg-slate-100 min-h-10"
             aria-label="Open menu"
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.25">
@@ -168,30 +178,31 @@ export function Header({ headerPages, menuPages, siteSettings }: HeaderProps) {
             ))}
           </nav>
 
-          {/* Right: Search */}
+          {/* Right: Search + Language Toggle */}
           <div className="ml-auto flex items-center gap-2">
+            <LanguageToggle />
             {/* Inline search on desktop */}
             {isSearchOpen ? (
-              <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 animate-[fadeIn_0.2s_ease-out]">
+              <form onSubmit={handleSearchSubmit} className="flex items-center gap-1.5 sm:gap-2 animate-[fadeIn_0.2s_ease-out] flex-1 sm:flex-none">
                 <input
                   ref={searchInputRef}
                   type="search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search news..."
-                  className="w-48 rounded-lg border border-slate-300 px-3 py-1.5 text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100 lg:w-64"
+                  placeholder={t.searchPlaceholder}
+                  className="w-full sm:w-48 rounded-lg border border-slate-300 px-3 py-2 text-xs sm:text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100 lg:w-64 min-h-10"
                 />
                 <button
                   type="submit"
-                  className="rounded-lg bg-sky-600 px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-sky-700"
+                  className="rounded-lg bg-sky-600 px-2.5 sm:px-3 py-2 text-xs sm:text-sm font-semibold text-white transition hover:bg-sky-700 min-h-10 whitespace-nowrap"
                 >
-                  Search
+                  {t.search}
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsSearchOpen(false)}
-                  className="rounded-lg p-1.5 text-slate-500 transition hover:bg-slate-100"
-                  aria-label="Close search"
+                  className="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 min-h-10 min-w-10"
+                  aria-label={t.closeSearch}
                 >
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -202,8 +213,8 @@ export function Header({ headerPages, menuPages, siteSettings }: HeaderProps) {
               <button
                 type="button"
                 onClick={() => setIsSearchOpen(true)}
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition hover:bg-slate-100"
-                aria-label="Search"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition hover:bg-slate-100 min-h-10"
+                aria-label={t.search}
               >
                 <svg className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <circle cx="11" cy="11" r="8" />
@@ -217,18 +228,15 @@ export function Header({ headerPages, menuPages, siteSettings }: HeaderProps) {
         {/* Category Nav strip — desktop */}
         <div className="hidden border-t border-slate-100 bg-slate-50 lg:block">
           <div className="mx-auto flex w-full max-w-7xl items-center gap-0.5 overflow-x-auto px-4 py-1 sm:px-6 lg:px-8">
-            {["राजनीति", "खेल", "बिजनेस", "मनोरंजन", "टेक्नोलॉजी", "हेल्थ", "विश्व", "शिक्षा", "ऑटो", "साइंस"].map(
-              (cat) => (
-                <Link
-                  key={cat}
-                  href={`/category/${encodeURIComponent(cat)}`}
-                  className="flex-shrink-0 rounded px-3 py-1.5 text-[13px] font-semibold text-slate-700 transition hover:bg-white hover:text-sky-700 font-hindi"
-                  style={{ fontFamily: "'Noto Sans Devanagari', sans-serif" }}
-                >
-                  {cat}
-                </Link>
-              )
-            )}
+            {HEADER_CATEGORIES.map((cat) => (
+              <Link
+                key={cat.slug}
+                href={`/category/${encodeURIComponent(cat.slug)}`}
+                className="flex-shrink-0 rounded px-3 py-1.5 text-[13px] font-semibold text-slate-700 transition hover:bg-white hover:text-sky-700"
+              >
+                {t[cat.key]}
+              </Link>
+            ))}
           </div>
         </div>
       </header>

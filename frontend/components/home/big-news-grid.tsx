@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import type { HomeNewsItem } from "@/lib/home-content";
+import { useLang } from "@/lib/language-context";
 
 type BigNewsGridProps = {
   items: HomeNewsItem[];
@@ -24,11 +26,14 @@ function getBadge(category: string) {
 
 export function BigNewsGrid({
   items,
-  title = "बड़ी खबरें",
-  ctaLabel = "सभी खबरें",
+  title,
+  ctaLabel,
   ctaHref = "/news",
   limit = 7,
 }: BigNewsGridProps) {
+  const { t } = useLang();
+  const resolvedTitle = title ?? t.topNews;
+  const resolvedCtaLabel = ctaLabel ?? t.allNews;
   const [featured, ...rest] = items.slice(0, limit);
   const secondaryItems = rest.slice(0, 2);
   const gridItems = rest.slice(2, 6);
@@ -44,14 +49,14 @@ export function BigNewsGrid({
           className="text-xl font-black tracking-tight text-slate-900 sm:text-2xl"
           style={{ fontFamily: "'Poppins', sans-serif" }}
         >
-          {title}
+          {resolvedTitle}
         </h2>
         <div className="ml-auto">
           <Link
             href={ctaHref}
             className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-sm transition hover:border-sky-300 hover:text-sky-700"
           >
-            {ctaLabel}
+            {resolvedCtaLabel}
             <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
             </svg>
@@ -142,6 +147,9 @@ export function BigNewsGrid({
                     {item.title}
                   </Link>
                 </h3>
+                {item.description && (
+                  <p className="mt-1 line-clamp-2 text-[11px] text-slate-500 leading-snug">{item.description}</p>
+                )}
                 <p className="mt-auto pt-2 text-[11px] text-slate-400">{item.publishedAt}</p>
               </div>
             </article>
