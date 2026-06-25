@@ -2,6 +2,8 @@ import type { NewsRow, UserRow, PageRow } from "@/types";
 
 export const adminNav = [
   { label: "Dashboard", href: "/dashboard" },
+  { label: "Create Article", href: "/create-article" },
+  { label: "Create Story", href: "/create-story" },
   { label: "News", href: "/news" },
   { label: "Create Pages", href: "/create-pages" },
   { label: "Categories", href: "/categories" },
@@ -18,8 +20,9 @@ export const reporterNav = [
 export const superAdminNav = adminNav;
 
 export const adminSidebarNav = [
+  { label: "Create Article", href: "/create-article", icon: "✍️" },
+  { label: "Create Story", href: "/create-story", icon: "📸" },
   { label: "Posts", href: "/posts", icon: "📝" },
-  { label: "Import News", href: "/import-news", icon: "📥" },
   { label: "Pages", href: "/pages", icon: "📄" },
   { label: "Comments", href: "/comments", icon: "💬" },
   { label: "Users", href: "/users", icon: "👥" },

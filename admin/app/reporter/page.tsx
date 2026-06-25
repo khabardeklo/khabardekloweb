@@ -10,7 +10,7 @@ import { ProfileEditForm } from "@/components/forms/profile-edit-form";
 import { reporterNav } from "@/lib/constants";
 import type { NewsRow } from "@/types";
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
+import { backendUrl } from "@/lib/config";
 
 type ReporterPost = {
   _id: string;

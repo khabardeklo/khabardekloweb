@@ -15,7 +15,7 @@ type NewsApiItem = {
   } | null;
 };
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
+import { backendUrl } from "@/lib/config";
 
 export default function PostsPage() {
   const [posts, setPosts] = useState<NewsRow[]>([]);

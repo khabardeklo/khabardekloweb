@@ -18,7 +18,7 @@ type CommentsResponse = {
   pagination?: { total: number; hasMore: boolean };
 };
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
+import { backendUrl } from "@/lib/config";
 
 const toDate = (v: string) =>
   new Date(v).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });

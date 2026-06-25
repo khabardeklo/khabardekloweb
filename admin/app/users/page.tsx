@@ -13,7 +13,7 @@ type UserApiItem = {
   approvalStatus?: string;
 };
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
+import { backendUrl } from "@/lib/config";
 
 export default function UsersPage() {
   const [users, setUsers] = useState<UserRow[]>([]);

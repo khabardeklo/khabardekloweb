@@ -9,7 +9,7 @@ type CategoryItem = {
   description?: string;
 };
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
+import { backendUrl } from "@/lib/config";
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<CategoryItem[]>([]);

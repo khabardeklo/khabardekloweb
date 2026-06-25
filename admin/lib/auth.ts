@@ -13,7 +13,7 @@ type LoginResponse = {
   };
 };
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
+import { backendUrl } from "@/lib/config";
 
 export const logout = async (): Promise<void> => {
   const response = await fetch(`${backendUrl}/auth/logout`, {

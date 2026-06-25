@@ -1,11 +1,20 @@
 .wrapper {
   display: grid;
-  grid-template-columns: 20% 60% 20%;
-  gap: 1rem;
+  grid-template-columns: 248px 1fr 224px;
+  gap: 1.5rem;
   align-items: start;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
+  .wrapper {
+    grid-template-columns: 232px 1fr;
+  }
+  .wrapper > *:last-child {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
   .wrapper {
     grid-template-columns: 1fr;
   }

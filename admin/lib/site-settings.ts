@@ -1,3 +1,5 @@
+import { backendUrl } from "@/lib/config";
+
 export type SettingsLink = {
   label: string;
   href: string;
@@ -36,6 +38,14 @@ export type HomepageSettings = {
   photosSectionLimit: number;
   headlinesLimit: number;
   adsLimit: number;
+  showNewsIn30Seconds: boolean;
+  newsIn30SecondsTitle: string;
+  newsIn30SecondsLimit: number;
+  showNewsForStudents: boolean;
+  newsForStudentsTitle: string;
+  newsForStudentsLimit: number;
+  showAiNewsChat: boolean;
+  aiNewsChatTitle: string;
 };
 
 export type CategoryPageSettings = {
@@ -142,7 +152,7 @@ export const defaultSiteSettings: SiteSettings = {
     maxSideMenuLinks: 16,
   },
   homepage: {
-    blockOrder: ["bigNewsGrid", "topStories", "mediaHighlights", "contentColumns"],
+    blockOrder: ["bigNewsGrid", "topStories", "mediaHighlights", "contentColumns", "newsIn30Seconds", "newsForStudents", "aiNewsChat"],
     showBigNewsGrid: true,
     showTopStories: true,
     showMediaHighlights: true,
@@ -171,6 +181,14 @@ export const defaultSiteSettings: SiteSettings = {
     photosSectionLimit: 6,
     headlinesLimit: 12,
     adsLimit: 4,
+    showNewsIn30Seconds: true,
+    newsIn30SecondsTitle: "News in 30 Seconds",
+    newsIn30SecondsLimit: 6,
+    showNewsForStudents: true,
+    newsForStudentsTitle: "News for Students",
+    newsForStudentsLimit: 8,
+    showAiNewsChat: true,
+    aiNewsChatTitle: "AI News Chat",
   },
   categoryPage: {
     titlePrefix: "Stories in",
@@ -249,8 +267,6 @@ export const defaultSiteSettings: SiteSettings = {
     footerBackground: "#ffffff",
   },
 };
-
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
 
 const normalizeSettings = (payload: Partial<SiteSettings> | null): SiteSettings => {
   if (!payload) {

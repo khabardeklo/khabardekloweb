@@ -60,7 +60,7 @@ type EditingItem = {
   title: string;
 } | null;
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
+import { backendUrl } from "@/lib/config";
 
 const statusMeta: Record<ReporterApprovalStatus, { label: string; tone: string }> = {
   pending: { label: "Pending approval", tone: "bg-amber-50 text-amber-700 ring-amber-200" },

@@ -25,6 +25,9 @@ const homepageBlockLabels: Record<string, string> = {
   topStories: "Top Stories",
   mediaHighlights: "Media Highlights",
   contentColumns: "Content Columns",
+  newsIn30Seconds: "News in 30 Seconds",
+  newsForStudents: "News for Students",
+  aiNewsChat: "AI News Chat",
 };
 
 function LinkListEditor({
@@ -588,6 +591,26 @@ export function SiteControlForm({ mode = "full" }: SiteControlFormProps) {
               <input value={settings.homepage.adsTitle} onChange={(event) => updateHomepage({ adsTitle: event.target.value })} placeholder="Ads Title" className="rounded-lg border border-slate-300 px-3 py-2 text-sm" />
               <input value={settings.homepage.headlinesLimit} type="number" min={1} onChange={(event) => updateHomepage({ headlinesLimit: Number(event.target.value || 1) })} placeholder="Headlines Limit" className="rounded-lg border border-slate-300 px-3 py-2 text-sm" />
               <input value={settings.homepage.adsLimit} type="number" min={1} onChange={(event) => updateHomepage({ adsLimit: Number(event.target.value || 1) })} placeholder="Ads Limit" className="rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+
+              {/* --- New Feature Controls --- */}
+              <div className="col-span-2 mt-2 border-t border-slate-200 pt-4">
+                <p className="mb-3 text-sm font-bold text-slate-800">Special Feature Sections</p>
+                <div className="grid gap-3 md:grid-cols-2">
+                  <label className="flex items-center gap-2 text-sm text-slate-700"><input type="checkbox" checked={settings.homepage.showNewsIn30Seconds} onChange={(event) => updateHomepage({ showNewsIn30Seconds: event.target.checked })} />Show News in 30 Seconds</label>
+                  <label className="flex items-center gap-2 text-sm text-slate-700"><input type="checkbox" checked={settings.homepage.showNewsForStudents} onChange={(event) => updateHomepage({ showNewsForStudents: event.target.checked })} />Show News for Students</label>
+                  <label className="flex items-center gap-2 text-sm text-slate-700"><input type="checkbox" checked={settings.homepage.showAiNewsChat} onChange={(event) => updateHomepage({ showAiNewsChat: event.target.checked })} />Show AI News Chat</label>
+                </div>
+                <div className="mt-3 grid gap-3 md:grid-cols-2">
+                  <input value={settings.homepage.newsIn30SecondsTitle} onChange={(event) => updateHomepage({ newsIn30SecondsTitle: event.target.value })} placeholder="News in 30 Seconds Title" className="rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+                  <input value={settings.homepage.newsIn30SecondsLimit} type="number" min={1} onChange={(event) => updateHomepage({ newsIn30SecondsLimit: Number(event.target.value || 1) })} placeholder="30 Seconds Limit" className="rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+                  <input value={settings.homepage.newsForStudentsTitle} onChange={(event) => updateHomepage({ newsForStudentsTitle: event.target.value })} placeholder="News for Students Title" className="rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+                  <input value={settings.homepage.newsForStudentsLimit} type="number" min={1} onChange={(event) => updateHomepage({ newsForStudentsLimit: Number(event.target.value || 1) })} placeholder="Students News Limit" className="rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+                  <input value={settings.homepage.aiNewsChatTitle} onChange={(event) => updateHomepage({ aiNewsChatTitle: event.target.value })} placeholder="AI News Chat Title" className="rounded-lg border border-slate-300 px-3 py-2 text-sm md:col-span-2" />
+                </div>
+                <div className="mt-3 rounded-xl border border-violet-200 bg-violet-50 p-3 text-xs text-violet-800">
+                  <strong>AI News Chat</strong> ke liye <code>GEMINI_API_KEY</code> frontend <code>.env</code> mein set karein.
+                </div>
+              </div>
             </div>
             <p className="mt-3 text-xs text-slate-500">These controls change the public homepage blocks, labels, and item counts directly from admin settings.</p>
           </section>

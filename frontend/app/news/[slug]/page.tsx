@@ -79,43 +79,57 @@ export default async function NewsDetailPage({ params }: NewsPageProps) {
   const mediaItems = homepageData.news.filter((item) => item.slug !== slug);
 
   return (
-    <main className="min-h-screen bg-slate-50 overflow-x-hidden">
-      <NewsDetailClient
-        slug={slug}
-        title={title}
-        category={category}
-        publishedAt={publishedAt}
-        readTime={readTime}
-        content={content}
-        description={news?.description}
-        sourceUrl={news?.sourceUrl}
-        authorId={news?.authorId}
-        categoryColor={categoryColor}
-      />
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-sky-50/30 overflow-x-hidden">
+      <div className="w-full max-w-none px-0">
+        <NewsDetailClient
+          slug={slug}
+          title={title}
+          category={category}
+          publishedAt={publishedAt}
+          readTime={readTime}
+          content={content}
+          description={news?.description}
+          sourceUrl={news?.sourceUrl}
+          authorId={news?.authorId}
+          categoryColor={categoryColor}
+        />
+      </div>
 
-      <section className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 px-4 py-8 sm:px-6 lg:grid-cols-12 lg:px-8">
-        <aside className="order-1 hidden lg:col-span-3 lg:block">
-          <LatestHeadlines items={sideHeadlines} />
-        </aside>
-
-        <article className="order-2 lg:col-span-6">
-          {news?.imageUrl && (
-            <div className="mb-8 overflow-hidden rounded-3xl shadow-lg">
-              <img src={news.imageUrl} alt={title} className="aspect-video w-full object-cover" />
+      <section className="w-full bg-white/50 backdrop-blur-sm border-t border-slate-200/50">
+        <div className="mx-auto grid w-full max-w-[1600px] grid-cols-1 gap-8 px-6 py-12 lg:grid-cols-12 xl:px-12">
+          <aside className="order-1 lg:col-span-3">
+            <div className="sticky top-8">
+              <LatestHeadlines items={sideHeadlines} />
             </div>
-          )}
+          </aside>
 
-          <section className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2" aria-label="Related media">
-            <VideoSection items={mediaItems} />
-            <PhotosSection items={mediaItems} />
-          </section>
+          <article className="order-2 lg:col-span-6 space-y-10">
+            {news?.imageUrl && (
+              <div className="overflow-hidden rounded-3xl shadow-2xl ring-1 ring-slate-200/50">
+                <img src={news.imageUrl} alt={title} className="aspect-video w-full object-cover transition-transform duration-700 hover:scale-105" />
+              </div>
+            )}
 
-          <CommentSection newsSlug={slug} />
-        </article>
+            <section className="grid grid-cols-1 gap-6 md:grid-cols-2" aria-label="Related media">
+              <div className="rounded-2xl bg-white/80 p-6 shadow-lg backdrop-blur-sm border border-slate-200/50">
+                <VideoSection items={mediaItems} />
+              </div>
+              <div className="rounded-2xl bg-white/80 p-6 shadow-lg backdrop-blur-sm border border-slate-200/50">
+                <PhotosSection items={mediaItems} />
+              </div>
+            </section>
 
-        <aside className="order-3 hidden lg:col-span-3 lg:block">
-          <AdsRail items={sideAds} />
-        </aside>
+            <div className="rounded-2xl bg-white/80 p-8 shadow-lg backdrop-blur-sm border border-slate-200/50">
+              <CommentSection newsSlug={slug} />
+            </div>
+          </article>
+
+          <aside className="order-3 lg:col-span-3">
+            <div className="sticky top-8">
+              <AdsRail items={sideAds} />
+            </div>
+          </aside>
+        </div>
       </section>
     </main>
   );

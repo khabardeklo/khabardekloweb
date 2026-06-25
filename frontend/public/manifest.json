@@ -1,0 +1,26 @@
+{
+  "name": "Khabar Deklo",
+  "short_name": "Khabar Deklo",
+  "description": "Daily news, analysis, and breaking stories from Khabar Deklo.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0284c7",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo english.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo english.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["news"],
+  "lang": "hi"
+}

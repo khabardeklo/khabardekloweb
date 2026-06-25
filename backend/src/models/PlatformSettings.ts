@@ -44,6 +44,14 @@ type HomepageSettings = {
   photosSectionLimit: number;
   headlinesLimit: number;
   adsLimit: number;
+  showNewsIn30Seconds: boolean;
+  newsIn30SecondsTitle: string;
+  newsIn30SecondsLimit: number;
+  showNewsForStudents: boolean;
+  newsForStudentsTitle: string;
+  newsForStudentsLimit: number;
+  showAiNewsChat: boolean;
+  aiNewsChatTitle: string;
 };
 
 type CategoryPageSettings = {
@@ -170,7 +178,7 @@ const platformSettingsSchema = new Schema<IPlatformSettings>(
     },
     homepage: {
       type: {
-        blockOrder: { type: [String], default: ["bigNewsGrid", "topStories", "mediaHighlights", "contentColumns"] },
+        blockOrder: { type: [String], default: ["bigNewsGrid", "topStories", "mediaHighlights", "contentColumns", "newsIn30Seconds", "newsForStudents", "aiNewsChat"] },
         showBigNewsGrid: { type: Boolean, default: true },
         showTopStories: { type: Boolean, default: true },
         showMediaHighlights: { type: Boolean, default: true },
@@ -199,6 +207,14 @@ const platformSettingsSchema = new Schema<IPlatformSettings>(
         photosSectionLimit: { type: Number, default: 6 },
         headlinesLimit: { type: Number, default: 12 },
         adsLimit: { type: Number, default: 4 },
+        showNewsIn30Seconds: { type: Boolean, default: true },
+        newsIn30SecondsTitle: { type: String, default: "News in 30 Seconds" },
+        newsIn30SecondsLimit: { type: Number, default: 6 },
+        showNewsForStudents: { type: Boolean, default: true },
+        newsForStudentsTitle: { type: String, default: "News for Students" },
+        newsForStudentsLimit: { type: Number, default: 8 },
+        showAiNewsChat: { type: Boolean, default: true },
+        aiNewsChatTitle: { type: String, default: "AI News Chat" },
       },
       default: () => ({
     categoryPage: {

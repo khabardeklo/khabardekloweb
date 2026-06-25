@@ -68,6 +68,14 @@ type BackendSettings = {
     photosSectionLimit?: number;
     headlinesLimit?: number;
     adsLimit?: number;
+    showNewsIn30Seconds?: boolean;
+    newsIn30SecondsTitle?: string;
+    newsIn30SecondsLimit?: number;
+    showNewsForStudents?: boolean;
+    newsForStudentsTitle?: string;
+    newsForStudentsLimit?: number;
+    showAiNewsChat?: boolean;
+    aiNewsChatTitle?: string;
   };
 };
 

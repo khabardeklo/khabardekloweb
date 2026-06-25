@@ -17,7 +17,7 @@ type NewsApiItem = { isPublished?: boolean };
 type PageApiItem = { _id?: string };
 type ReporterRow = { approvalStatus?: string };
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
+import { backendUrl } from "@/lib/config";
 
 export default function DashboardPage() {
   const [stats, setStats] = useState<DashboardStats>({

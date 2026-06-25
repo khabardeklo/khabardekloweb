@@ -29,8 +29,7 @@ type ReporterNewsFormProps = {
   onCancelEdit?: () => void;
 };
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
-const backendOrigin = backendUrl.replace(/\/api$/, "");
+import { backendUrl, backendOrigin } from "@/lib/config";
 const categories = ["India", "Politics", "Business", "Technology", "Sports", "Entertainment", "World"];
 const customCategoryValue = "__custom__";
 
@@ -1354,9 +1353,22 @@ export function ReporterNewsForm({ authorName = "Reporter", onSuccess, postToEdi
           padding: 0 0.2rem;
         }
 
-        .tiptap-editor ul,
+        .tiptap-editor ul {
+          list-style-type: disc;
+          padding-left: 1.5rem;
+          margin: 0.5rem 0;
+        }
+
         .tiptap-editor ol {
-          padding-left: 1.2rem;
+          list-style-type: decimal;
+          padding-left: 1.5rem;
+          margin: 0.5rem 0;
+        }
+
+        .tiptap-editor ul li,
+        .tiptap-editor ol li {
+          display: list-item;
+          margin: 0.25rem 0;
         }
       `}</style>
     </form>

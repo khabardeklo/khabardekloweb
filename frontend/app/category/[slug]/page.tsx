@@ -41,8 +41,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   return (
     <main className="min-h-screen bg-slate-50">
       {/* Category Hero Banner */}
-      <div className="border-b border-slate-200 bg-white">
-        <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="border-b border-slate-100 bg-white">
+        <div className="w-full px-4 py-8 sm:px-6 xl:px-10">
+          <div className="mx-auto max-w-[1400px]">
           {/* Breadcrumb */}
           <nav className="mb-4 flex items-center gap-2 text-sm">
             <Link href="/" className="font-medium text-sky-700 hover:text-sky-900 transition-colors">
@@ -70,11 +71,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </p>
             </div>
           </div>
+          </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="w-full px-4 py-8 sm:px-6 xl:px-10">
+        <div className="mx-auto max-w-[1400px]">
         <div className="grid gap-6 lg:grid-cols-12">
           {/* News Grid */}
           <div className="lg:col-span-8">
@@ -143,6 +146,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <AdsRail items={sideAds} title={categoryPage.sidebarAdsTitle || "Sponsored"} />
             </aside>
           )}
+        </div>
         </div>
       </div>
     </main>

@@ -3,8 +3,7 @@
 import { useCallback, useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
-const backendOrigin = backendUrl.replace(/\/api$/, "");
+import { backendUrl, backendOrigin } from "@/lib/config";
 
 interface ProfileData {
   name: string;

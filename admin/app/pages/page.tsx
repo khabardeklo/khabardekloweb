@@ -14,7 +14,7 @@ type BackendPage = {
   createdAt?: string;
 };
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
+import { backendUrl } from "@/lib/config";
 
 const toDateLabel = (value?: string): string => {
   if (!value) {

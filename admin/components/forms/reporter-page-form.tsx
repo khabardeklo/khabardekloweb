@@ -30,8 +30,7 @@ type ReporterPageFormProps = {
   onCancelEdit?: () => void;
 };
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
-const backendOrigin = backendUrl.replace(/\/api$/, "");
+import { backendUrl, backendOrigin } from "@/lib/config";
 const imageSizePresets = [25, 50, 75, 100] as const;
 const imageAlignPresets = ["left", "center", "right"] as const;
 const MAX_RECENT_COLORS = 8;

@@ -12,7 +12,6 @@ import pageRoutes from "./routes/page.routes";
 import userRoutes from "./routes/user.routes";
 import profileRoutes from "./routes/profile.routes";
 import commentRoutes from "./routes/comment.routes";
-import apiSourceRoutes from "./routes/apiSource.routes";
 import { env } from "./config/env";
 import { errorHandler, notFound } from "./middleware/error";
 
@@ -42,7 +41,5 @@ app.use("/api/pages", pageRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/comments", commentRoutes);
-app.use("/api/api-sources", apiSourceRoutes);
-
 app.use(notFound);
 app.use(errorHandler);

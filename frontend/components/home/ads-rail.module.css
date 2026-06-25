@@ -1,72 +1,100 @@
 .rail {
-  display: grid;
-  gap: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
 }
 
 .card {
   position: relative;
   overflow: hidden;
   border-radius: 16px;
-  border: 1px solid #dbe2ea;
-  background: linear-gradient(145deg, #0f172a, #1e293b);
+  background: linear-gradient(145deg, #0f172a 0%, #1e293b 60%, #0f2744 100%);
   color: #e2e8f0;
-  padding: 0.95rem 0.9rem;
-  min-height: 220px;
-  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.2);
+  padding: 1rem;
+  min-height: 200px;
+  box-shadow: 0 8px 24px rgba(15,23,42,0.25), inset 0 1px 0 rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
 .tag {
   margin: 0;
-  display: inline-block;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #7dd3fc;
 }
 
+.tag::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #7dd3fc;
+  opacity: 0.7;
+}
+
 .title {
-  margin: 0.55rem 0 0;
-  font-size: 1.1rem;
-  line-height: 1.25;
+  margin: 0.5rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #f1f5f9;
 }
 
 .description {
-  margin: 0.55rem 0 0;
-  color: #cbd5e1;
-  font-size: 0.88rem;
-  line-height: 1.45;
-  max-width: 90%;
+  margin: 0.45rem 0 0;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  max-width: 88%;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .cta {
-  display: inline-block;
-  margin-top: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 0.875rem;
   border-radius: 9999px;
-  padding: 0.38rem 0.75rem;
-  font-size: 0.74rem;
+  padding: 0.4rem 0.875rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #082f49;
   background: #bae6fd;
   text-decoration: none;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.cta:hover {
+  background: #7dd3fc;
+  transform: translateY(-1px);
 }
 
 .graphic {
   position: absolute;
-  right: -36px;
-  bottom: -44px;
-  width: 150px;
-  height: 150px;
-  border-radius: 36px;
-  transform: rotate(18deg);
+  right: -40px;
+  bottom: -48px;
+  width: 160px;
+  height: 160px;
+  border-radius: 40px;
+  transform: rotate(20deg);
+  pointer-events: none;
 }
 
 .graphicOne {
-  background: radial-gradient(circle at 30% 30%, rgba(14, 165, 233, 0.5), rgba(2, 132, 199, 0.1));
+  background: radial-gradient(circle at 35% 35%, rgba(14,165,233,0.45), rgba(2,132,199,0.08));
 }
 
 .graphicTwo {
-  background: radial-gradient(circle at 30% 30%, rgba(250, 204, 21, 0.45), rgba(161, 98, 7, 0.15));
+  background: radial-gradient(circle at 35% 35%, rgba(250,204,21,0.4), rgba(161,98,7,0.1));
 }

@@ -29,6 +29,14 @@ export default async function RootLayout({
 
   return (
     <html lang="hi">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#0284c7" />
+        <link rel="apple-touch-icon" href="/logo english.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Khabar Deklo" />
+      </head>
       <body className="min-h-screen bg-slate-50 text-slate-950 antialiased">
         <LanguageProvider>
           {siteSettings.layout.showHeader ? (

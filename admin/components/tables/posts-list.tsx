@@ -9,7 +9,7 @@ type PostsListProps = {
   onDelete?: (id: string) => void;
 };
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
+import { backendUrl } from "@/lib/config";
 
 export function PostsList({ posts: initialPosts, onDelete }: PostsListProps) {
   const [posts, setPosts] = useState(initialPosts);

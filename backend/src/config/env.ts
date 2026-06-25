@@ -5,6 +5,7 @@ dotenv.config();
 export const env = {
   port: Number(process.env.PORT) || 5000,
   mongoUri: process.env.MONGO_URI || "",
+  mongoDnsServers: process.env.MONGO_DNS_SERVERS || "",
   accessTokenSecret: process.env.ACCESS_TOKEN_SECRET || "",
   refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET || "",
   accessTokenExpires: process.env.ACCESS_TOKEN_EXPIRES || "15m",

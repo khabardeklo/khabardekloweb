@@ -17,7 +17,7 @@ type EditPage = {
   isPublished: boolean;
 };
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
+import { backendUrl } from "@/lib/config";
 
 function CreatePagesContent() {
   const router = useRouter();
